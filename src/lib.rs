@@ -117,6 +117,11 @@ pub struct AmmContext {
     pub clock_ref: ClockRef,
 }
 
+pub struct MintVault {
+    pub vault: Pubkey,
+    pub mint: Pubkey,
+}
+
 pub trait Amm {
     // Maybe trait was made too restrictive?
     fn from_keyed_account(keyed_account: &KeyedAccount, amm_context: &AmmContext) -> Result<Self>
@@ -130,6 +135,8 @@ pub trait Amm {
     fn key(&self) -> Pubkey;
     /// The mints that can be traded
     fn get_reserve_mints(&self) -> Vec<Pubkey>;
+    /// The mints that vault addresses
+    fn get_vault_mints(&self) -> Vec<MintVault>;
     /// The accounts necessary to produce a quote
     fn get_accounts_to_update(&self) -> Vec<Pubkey>;
     /// Picks necessary accounts to update it's internal state
